@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To My Dearest Handsome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("i57Lt75Sxut-d3BL-"); 
+       })();
+    </script>
+    <style>
+        :root {
+            --bg-color: #fffafb; 
+            --pink-paper: #fef0f2; 
+            --envelope-color: #fcf6f0; 
+            --envelope-shadow: #f5ede4; 
+            --text-brown: #6d4c41;
+            --accent-pink: #f06292;
+            --hot-pink: #ff4081;
+            --wax-red: #a32638; 
+            --line-height: 2.2rem; 
+        }
+
+        body {
+            background: radial-gradient(circle at center, #fffafb 0%, #f7eaed 100%);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'PingFang SC', 'STHeiti', sans-serif;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        #lock-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255, 250, 251, 0.98);
+            z-index: 100;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .tease-text {
+            font-family: 'Great Vibes', cursive;
+            color: var(--hot-pink);
+            font-size: clamp(2rem, 8vw, 3.8rem);
+            line-height: 1.2;
+            animation: zoomInScale 0.8s forwards, heartbeat 1.5s infinite 0.8s;
+            pointer-events: none;
+        }
+
+        .tease-text span {
+            display: block;
+            font-size: clamp(2.5rem, 10vw, 4.8rem);
+            margin-top: 15px;
+        }
+
+        @keyframes zoomInScale { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1.1); opacity: 1; } }
+        @keyframes heartbeat {
+            0% { transform: scale(1.1); }
+            14% { transform: scale(1.2); }
+            28% { transform: scale(1.1); }
+            42% { transform: scale(1.2); }
+            70% { transform: scale(1.1); }
+        }
+
+        #envelope-section { transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .envelope-wrapper {
+            position: relative;
+            width: min(350px, 90vw); height: 240px;
+            background: var(--envelope-color);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .envelope-wrapper:hover { transform: translateY(-8px); }
+
+        .envelope-lid {
+            position: absolute; top: 0; left: 0; width: 0; height: 0;
+            border-left: min(175px, 45vw) solid transparent; 
+            border-right: min(175px, 45vw) solid transparent;
+            border-top: 130px solid var(--envelope-color); 
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.05));
+            transform-origin: top; transition: transform 0.6s ease-in-out; z-index: 3;
+        }
+
+        .wax-seal {
+            position: absolute; top: 110px; left: 50%; transform: translateX(-50%);
+            width: 54px; height: 54px; background: var(--wax-red); border-radius: 50%;
+            z-index: 10; display: flex; justify-content: center; align-items: center; transition: 0.5s;
+        }
+        .wax-seal::before { content: "W"; font-family: 'Great Vibes', cursive; color: rgba(255, 255, 255, 0.6); font-size: 26px; }
+
+        .envelope-wrapper::after {
+            content: ""; position: absolute; bottom: 0; left: 0;
+            border-left: min(175px, 45vw) solid transparent; 
+            border-right: min(175px, 45vw) solid transparent;
+            border-bottom: 120px solid var(--envelope-shadow); z-index: 2;
+            border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;
+        }
+
+        .envelope-to {
+            position: absolute; top: 165px; width: 100%; text-align: center;
+            font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: var(--text-brown); z-index: 4;
+        }
+
+        .letter {
+            display: none;
+            width: min(350px, 90vw); max-height: 85vh;
+            background-color: var(--pink-paper) !important;
+            box-shadow: 0 20px 45px rgba(181, 152, 157, 0.5); 
+            background-image: linear-gradient(rgba(109, 76, 65, 0.05) 1px, transparent 1px);
+            background-size: 100% var(--line-height); 
+            background-position: 0 1.2rem; 
+            border-radius: 4px; padding: 30px 20px;
+            position: absolute; z-index: 20; box-sizing: border-box;
+            text-align: center; overflow-y: auto; 
+            transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        h2 { font-family: 'Dancing Script', cursive; font-size: 2rem; color: var(--text-brown); margin: 0 0 10px 0; }
+        
+        /* 关键修改：允许换行以适配手机 */
+        p { 
+            color: var(--text-brown); 
+            line-height: var(--line-height); 
+            font-size: 1.05rem; 
+            margin: 0; 
+            white-space: normal; 
+            word-break: break-word; 
+        }
+
+        .special-invite-text { font-family: 'Great Vibes', cursive; font-size: 1.8rem; color: var(--accent-pink); }
+
+        .next-btn {
+            background-color: var(--text-brown); color: white; border: none; padding: 8px 35px;
+            border-radius: 25px; cursor: pointer; margin-top: 15px; font-family: 'Dancing Script', cursive;
+            font-size: 1.1rem; transition: 0.3s ease;
+        }
+        .next-btn:hover { background-color: var(--accent-pink); transform: translateY(-2px); }
+
+        .option-item {
+            background: rgba(255, 255, 255, 0.5); 
+            margin: 10px 0; padding: 12px 15px; 
+            border-radius: 10px; cursor: pointer; 
+            color: var(--text-brown); font-size: 0.9rem; 
+            text-align: left; border: 1px solid transparent; 
+            transition: transform 0.2s ease, background 0.2s ease;
+            position: relative; z-index: 25;
+            white-space: normal;
+        }
+        .option-item:hover { background: #ffffff; border-color: var(--accent-pink); transform: translateX(8px); }
+
+        .open-lid { transform: rotateX(180deg); z-index: 0 !important; }
+        .fade-out { opacity: 0; pointer-events: none; }
+        .slide-out { display: block !important; animation: slideUp 1s forwards; }
+        .slide-in { transform: translateY(100px) scale(0.2); opacity: 0; }
+        @keyframes slideUp { from { transform: translateY(100px) scale(0.8); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+    </style>
+</head>
+<body onclick="handleGlobalClick()">
+
+    <div id="lock-screen" onclick="hideLock(event)">
+        <div class="tease-text">
+            Oh baby,<br>u have no choice...<br>
+            <span>but DATE ME! 💖</span>
+        </div>
+    </div>
+
+    <div id="envelope-section">
+        <div class="envelope-wrapper" id="envelope" onclick="openEnvelope(event)">
+            <div class="envelope-lid" id="lid"></div>
+            <div class="wax-seal" id="seal"></div>
+            <div class="envelope-to">To: My Dearest Handsome</div>
+        </div>
+    </div>
+
+    <div id="letter-container" class="letter" onclick="event.stopPropagation()">
+        <div id="step2" class="letter-content">
+            <h2>Deepest Apologies</h2>
+            <p>本人深刻检讨！</p>
+            <p>在你最脆弱的时候说你不好看</p>
+            <p>就算生病，wyf也是全宇宙最帅的男人</p>
+            <p>I'll never say <b>the "u" word</b></p>
+            <p><span class="special-invite-text">This is an invitation...</span></p>
+            <button class="next-btn" onclick="showStep(3)">Check it</button>
+        </div>
+
+        <div id="step3" class="letter-content" style="display:none;">
+            <h2>Be My Valentine?</h2>
+            <p>为了弥补我的错误并欣赏帅脸：</p>
+            <p><b>地球上最帅的男人愿不愿意</b></p>
+            <p><b>be my valentine</b></p>
+            <p>赏光跟我一起看场电影？</p>
+            <p><span class="special-invite-text">Waiting for you...</span></p>
+            <button class="next-btn" onclick="showStep(4)">RSVP</button>
+        </div>
+
+        <div id="step4" class="letter-content" style="display:none;">
+            <h2>Final Response</h2>
+            <div class="option-item" onclick="handleRSVP(5, '准了！接受道歉并准备帅晕你')">[ A ] 准了！接受道歉并准备帅晕你。😏</div>
+            <div class="option-item" onclick="handleRSVP(5, '看在夸我帅的份上勉强陪你吧')">[ B ] 看在夸我帅的份上勉强陪你吧。😙</div>
+            <div class="option-item" onclick="handleRSVP(5, '太爱我的宝贝了没办法拒绝你')">[ C ] 太爱我的宝贝了没办法拒绝你。😆</div>
+        </div>
+
+        <div id="step5" class="letter-content" style="display:none;">
+            <h2>Confirmed!</h2>
+            <p>约会协议已生效！</p>
+            <p><b>No regrets. No more “U” word.</b></p>
+            <p>情人节那天，</p>
+            <p>我会带着你的最爱<i>(which is me)</i></p>
+            <p>准时出现。</p>
+            <p style="font-size: 1.8rem; margin-top: 10px;">💌</p>
+            <button class="next-btn" onclick="closeLetter(event)">Seal the Deal</button>
+        </div>
+    </div>
+
+    <script>
+        let isLocked = false;
+
+        function openEnvelope(e) {
+            if(isLocked) return;
+            e.stopPropagation(); 
+            document.getElementById('lid').classList.add('open-lid');
+            document.getElementById('seal').classList.add('fade-out');
+            setTimeout(() => {
+                const env = document.getElementById('envelope-section');
+                env.style.opacity = '0';
+                setTimeout(() => {
+                    env.style.visibility = 'hidden';
+                    document.getElementById('letter-container').classList.add('slide-out');
+                }, 500);
+            }, 600);
+        }
+
+        function handleRSVP(num, optionText) {
+            const templateParams = {
+                selected_option: optionText,
+                time: new Date().toLocaleString()
+            };
+
+            emailjs.send('service_valentineday', 'template_1t5anwg', templateParams)
+                .then(function(response) {
+                   console.log('SUCCESS!', response.status, response.text);
+                }, function(error) {
+                   console.log('FAILED...', error);
+                   alert("发送失败，请检查网络或配置");
+                });
+
+            const items = document.querySelectorAll('.option-item');
+            items.forEach(item => {
+                item.style.pointerEvents = 'none';
+                item.style.opacity = '0.6';
+            });
+            
+            setTimeout(() => {
+                showStep(num);
+            }, 400);
+        }
+
+        function showStep(num) {
+            const contents = document.getElementsByClassName('letter-content');
+            for(let i = 0; i < contents.length; i++) {
+                contents[i].style.display = 'none';
+            }
+            const nextStep = document.getElementById('step' + num);
+            if (nextStep) {
+                nextStep.style.display = 'block';
+            }
+        }
+
+        function closeLetter(e) {
+            e.stopPropagation();
+            const letter = document.getElementById('letter-container');
+            const envSection = document.getElementById('envelope-section');
+            const lid = document.getElementById('lid');
+            const seal = document.getElementById('seal');
+
+            letter.classList.remove('slide-out');
+            letter.classList.add('slide-in');
+
+            setTimeout(() => {
+                letter.style.display = 'none';
+                envSection.style.visibility = 'visible';
+                envSection.style.opacity = '1';
+                setTimeout(() => {
+                    lid.classList.remove('open-lid');
+                    seal.classList.remove('fade-out');
+                    setTimeout(() => { isLocked = true; }, 500);
+                }, 400);
+            }, 600);
+        }
+
+        function handleGlobalClick() {
+            if (isLocked) {
+                document.getElementById('lock-screen').style.display = 'flex';
+            }
+        }
+
+        function hideLock(e) {
+            e.stopPropagation(); 
+            document.getElementById('lock-screen').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
