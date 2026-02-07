@@ -43,11 +43,11 @@
             width: 100%; height: 100%;
             background: rgba(255, 250, 251, 0.98);
             z-index: 100;
+            display: none; /* 初始隐藏，JS会切换为flex */
             flex-direction: column;
-            justify-content: center;
+            justify-content: center; 
             align-items: center;
             text-align: center;
-            padding: 20px;
         }
 
         .tease-text {
@@ -57,6 +57,7 @@
             line-height: 1.2;
             animation: zoomInScale 0.8s forwards, heartbeat 1.5s infinite 0.8s;
             pointer-events: none;
+            margin: auto 0;
         }
 
         .tease-text span {
